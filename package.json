@@ -1,0 +1,20 @@
+{
+  "name": "haas-adapter",
+  "version": "1.0.0",
+  "description": "Javascript MTConnect adapter for Haas Machine",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "haas",
+    "mtconnect",
+    "adapter"
+  ],
+  "author": "Efrain Rodriguez",
+  "license": "ISC",
+  "dependencies": {
+    "readline-sync": "^1.4.10",
+    "serialport": "^9.0.4"
+  }
+}
