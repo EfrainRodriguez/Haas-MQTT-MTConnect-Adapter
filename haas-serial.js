@@ -34,7 +34,7 @@ module.exports = function (port, baudrate) {
 
     parser.on('data', data => {
         //console.log('Machine status: ' + data)
-        status += ' ' + data
+        status += ' ' + data.trim()
     })
 
     serialcomm.on('error', err => {
@@ -49,7 +49,8 @@ module.exports = function (port, baudrate) {
             }
             //console.log('Command sent!')
         })
-        await sleep(500)
+        await sleep(50)
+
         return status
     }
     
