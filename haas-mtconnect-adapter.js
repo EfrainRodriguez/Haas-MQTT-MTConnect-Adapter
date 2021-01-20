@@ -1,9 +1,10 @@
 const Adapter = require('./mtconnect-adapter')
 const Serial = require('./haas-serial')
+const config = require('./config.json')
 
 //init
-const adapter = new Adapter()
-const serialcomm = new Serial()
+const adapter = new Adapter(config.adapter)
+const serialcomm = new Serial(config.serial)
 
 // loop
 setInterval(() => {

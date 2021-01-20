@@ -1,0 +1,15 @@
+{
+    "serial": {
+        "port": "COM9",
+        "baudrate": 115200,
+        "parity": "even",
+        "stopBits": 1,
+        "dataBits": 7
+    },
+
+    "adapter": {
+        "host": "localhost",
+        "port": 7878,
+        "heartbit": 1000
+    }
+}

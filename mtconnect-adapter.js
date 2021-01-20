@@ -1,17 +1,18 @@
 const net = require('net')
 
-module.exports = function (port) {
+module.exports = function (options) {
 
-    let _port = port || 7878
+    let _port = options.port || 7878
+    let _host = options.host || 'localhost'
 
-    this.heartbit = 1000
+    this.heartbit = options.heartbit || 1000
 
     let shdrLine = ''
     let dataItems = []
 
     let server = net.createServer()
 
-    server.listen(_port, () => {
+    server.listen(_port, _host, () => {
         console.log('MTConnect adapter running on port', _port)
     })
 

@@ -3,28 +3,28 @@ const {promisify} = require('util')
 
 const sleep = promisify(setTimeout)
 
-module.exports = function (port, baudrate) {
+module.exports = function (options) {
 
     let _port
     switch (process.platform) {
         case 'win32':
-            _port = port || 'COM9'
+            _port = options.port || 'COM9'
             break
         case 'linux':
-            _port = port || '/dev/ttyUSB0'
+            _port = options.port || '/dev/ttyUSB0'
             break
         default:
-            _port = port || 'COM9'
+            _port = options.port || 'COM9'
             break
     }
 
     let serialcomm = new SerialPort(
         _port,
         {
-            baudRate: baudrate || 115200, 
-            parity: 'even',
-            stopBits: 1,
-            dataBits: 7
+            baudRate: options.baudrate || 115200, 
+            parity: options.parity || 'even',
+            stopBits: options.stopBits || 1,
+            dataBits: options.dataBits || 7
         }
     )
 
