@@ -58,9 +58,8 @@ To start the adapter, being in the project directory, you can run:
 ## Credits
 The project is part of the research developments in the LaDPRER laboratory, UnB, Brazil.
 
-Contributor: Efrain Rodriguez 
-
-[Github profile](https://github.com/EfrainRodriguez)
+Contributor: Efrain Rodriguez <br/>
+[Github profile](https://github.com/EfrainRodriguez) <br/>
 [Researchgate profile](https://www.researchgate.net/profile/Efrain_Rodriguez7)
 
 ## License
