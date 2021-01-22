@@ -4,7 +4,7 @@ This Node js project creates an MTConnect adapter to fetch machine status data f
 
 ## Install
 
-You can download or clone this project from [here](https://github.com/EfrainRodriguez/Haas-MTConnect-Adapter)
+You can download or clone this project [here](https://github.com/EfrainRodriguez/Haas-MTConnect-Adapter). However, keep in mind that to install this project you must have `Node js` and `npm` installed on your computer or IoT device. You can download both from [here](https://nodejs.org/en/).
 
 In the project directory, you can install the solution by using:
 
@@ -46,6 +46,9 @@ This adapter has been used with a Haas Mini Mill machine sending status data to 
     - `5042`: current Y axis position
     - `5043`: current Z axis position
     - `3027`: spindle speed
+    - `1094`: coolant level
+    - `1098`: spindle load
+    - `3026`: tool in spindle
 
 More variables to use with the MACRO Q600 can be added on the basis of your need by appending the adapter code with functions for that.
 

@@ -123,7 +123,8 @@ async function cmdQ600() {
     await cmd5042()
     await cmd5043()
     await cmd3027()
-
+    await cmd1094()
+    await cmd1098()
 }
 
 /**
@@ -170,3 +171,35 @@ async function cmd3027() {
     }
 }
 
+/**
+ * Variable 1094: get coolant level
+ */
+async function cmd1094() {
+    let status = await serialcomm.sendCommand('Q600 1094')
+    status = cleanStatus(status)
+    if(status[2] != null){
+        adapter.addDataItem('coolant_level', status[2].trim())
+    }
+}
+
+/**
+ * Variable 1098: get spindle load
+ */
+async function cmd1098() {
+    let status = await serialcomm.sendCommand('Q600 1098')
+    status = cleanStatus(status)
+    if(status[2] != null){
+        adapter.addDataItem('load', status[2].trim())
+    }
+}
+
+/**
+ * Variable 3026: get tool in spindle
+ */
+async function cmd3026() {
+    let status = await serialcomm.sendCommand('Q600 3026')
+    status = cleanStatus(status)
+    if(status[2] != null){
+        adapter.addDataItem('load', status[2].trim())
+    }
+}
