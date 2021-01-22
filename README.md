@@ -1,6 +1,6 @@
 # MTConnect Adapter for Haas
 
-This Node js project creates an MTConnect adapter to fetch machine status data from a Haas CNC Machine via RS-232, and send the status data to an MTConnect agente client.
+This Node js project creates an MTConnect adapter to fetch machine status data from a Haas CNC Machine via RS-232, and it sends the status data to an MTConnect agente client.
 
 ## Install
 
@@ -9,7 +9,7 @@ You can download or clone this project from [here](https://github.com/EfrainRodr
 In the project directory, you can install the solution by using:
 
 ```console
-`npm install`
+npm install
 ```
 
 ## How to use
@@ -17,7 +17,7 @@ In the project directory, you can install the solution by using:
 You should add the respective settings for both serial communication and adapter server in the `config.json` file like this:
 
 ```json
-`{
+{
     "serial": {
         "port": "COM9",
         "baudrate": 115200,
@@ -31,7 +31,7 @@ You should add the respective settings for both serial communication and adapter
         "port": 7878,
         "heartbit": 1000
     }
-}`
+}
 ```
 
 Depending on your operating system you should set the serial port name (e.g. `'COM9'` on Windows or `'/dev/ttyUSB0'` on Linux).
@@ -52,7 +52,7 @@ More variables to use with the MACRO Q600 can be added on the basis of your need
 To start the adapter, being in the project directory, you can run:
 
 ```console
-`npm run start`
+npm run start
 ```
 
 ## Credits
