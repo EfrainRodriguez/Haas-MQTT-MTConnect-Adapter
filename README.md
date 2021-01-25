@@ -1,6 +1,6 @@
 # MTConnect Adapter for Haas
 
-This Node js project creates an MTConnect adapter to fetch machine status data from a Haas CNC Machine via RS-232, and it sends the status data to an MTConnect agente client.
+This Node js project creates an MTConnect adapter to fetch machine status data from a Haas CNC Machine via RS-232, and send it to an MTConnect agent client.
 
 ## Install
 
