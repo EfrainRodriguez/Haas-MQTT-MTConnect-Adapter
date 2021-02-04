@@ -119,19 +119,19 @@ async function cmdQ500() {
  */
 async function cmdQ600() {
 
-    await cmd5041()
-    await cmd5042()
-    await cmd5043()
+    await cmd5021()
+    await cmd5022()
+    await cmd5023()
     await cmd3027()
     await cmd1094()
     await cmd1098()
 }
 
 /**
- * Variable 5041: get current x position
+ * Variable 5021: get current machine x position
  */
-async function cmd5041() {
-    let status = await serialcomm.sendCommand('Q600 5041')
+async function cmd5021() {
+    let status = await serialcomm.sendCommand('Q600 5021')
     status = cleanStatus(status)
     if(status[2] != null){
         adapter.addDataItem('x_act', status[2].trim())
@@ -139,10 +139,10 @@ async function cmd5041() {
 }
 
 /**
- * Variable 5042: get current y position
+ * Variable 5022: get current machine y position
  */
-async function cmd5042() { 
-    let status = await serialcomm.sendCommand('Q600 5042')
+async function cmd5022() { 
+    let status = await serialcomm.sendCommand('Q600 5022')
     status = cleanStatus(status)
     if(status[2] != null){
         adapter.addDataItem('y_act', status[2].trim())
@@ -150,10 +150,10 @@ async function cmd5042() {
 }
 
 /**
- * Variable 5043: get current z position
+ * Variable 5023: get current machine z position
  */
-async function cmd5043() {
-    let status = await serialcomm.sendCommand('Q600 5043')
+async function cmd5023() {
+    let status = await serialcomm.sendCommand('Q600 5023')
     status = cleanStatus(status)
     if(status[2] != null){
         adapter.addDataItem('z_act', status[2].trim())

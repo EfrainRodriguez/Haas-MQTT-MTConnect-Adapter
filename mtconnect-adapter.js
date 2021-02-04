@@ -8,7 +8,7 @@ module.exports = function (options) {
     this.heartbit = options.heartbit || 1000
 
     let shdrLine = ''
-    let dataItems = []
+    let dataItems = {}
 
     let server = net.createServer()
 
@@ -27,6 +27,7 @@ module.exports = function (options) {
             if (data.includes('* PING')) {
                 socket.write('* PONG ' + this.heartbit.toString() + '\n')
                 buildSHDR()
+                console.log(shdrLine)
                 socket.write(shdrLine)
             }
         })
@@ -37,11 +38,12 @@ module.exports = function (options) {
     })
 
     function buildSHDR() {
-        console.log('write to client')
+        //console.log('write to client')
+        shdrLine = ''
         shdrLine += getTimestamp()
-        dataItems.map(item => {
-            shdrLine += '|' + item.name + '|' + item.value
-        })
+        for (let item in dataItems) {
+            shdrLine += '|' + item + '|' + dataItems[item]
+        }
         shdrLine += '\n'
     }
 
@@ -57,10 +59,7 @@ module.exports = function (options) {
 
     this.addDataItem = (name, value) => {
         if (name != null && value != null) {
-            dataItems.push({
-                name: name,
-                value: value
-            })
+            dataItems[name] = value
         }
     }
     
