@@ -4,16 +4,20 @@
   "description": "Javascript MTConnect adapter for Haas Machine",
   "main": "haas-mtconnect-adapter.js",
   "scripts": {
-    "start": "node haas-mtconnect-adapter.js"
+    "adapter": "node haas-mtconnect-adapter.js",
+    "mqtt": "node mqtt-publisher.js"
   },
   "keywords": [
     "haas",
     "mtconnect",
-    "adapter"
+    "adapter",
+    "mqtt"
   ],
   "author": "Efrain Rodriguez",
   "license": "ISC",
   "dependencies": {
+    "aedes": "^0.46.0",
+    "mqtt": "^4.2.6",
     "serialport": "^9.0.4"
   }
 }

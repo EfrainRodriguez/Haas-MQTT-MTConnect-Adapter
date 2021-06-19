@@ -1,18 +1,44 @@
-const Adapter = require('./mtconnect-adapter')
+/*  MQTT: Messages associated to a certain topic
+**  Publisher: Sends the messages to the broker
+**  Broker: Server that manages the messages sent from publishers to subscribers
+**  Subscribers:    Receives the messages sent from publishers
+**
+**  Main topic: haas/minimill/*    
+**  (standard topic, you can modify at config.json, keep in mind that it has to be the same topic of your subscribers' configurations)
+**  *: Subtopics (temperature, load, speed, position, availability, operation mode, program, parts_count)
+*/
+
 const Serial = require('./haas-serial')
 const Simulator = require('./data_simulator')
 const config = require('./config.json')
 
-//init
+const mqtt = require('mqtt')
+const Broker = require('./mqtt-broker')
+
 const simulation = config.publisher.simulation
-const adapter = new Adapter(config.adapter)
-const simulator = simulation ? new Simulator() : null
 const serialcomm = simulation ? null : new Serial(config.serial)
+const simulator = simulation ? new Simulator() : null
+
+
+const broker = new Broker(config.publisher)
+const pub = mqtt.connect(`mqtt://${config.publisher.host}:${config.publisher.port}`)
+pub.on('connect', () => {
+
+    setInterval(() => {
+
+        if (broker.connected >= 2) {
+
+            start()
+
+        }
+
+    }, 1000)
+
+})
+
 var first = true
 // loop
-setInterval(() => {
-    start()
-}, 500)
+
 
 /**
  * Start machine monitoring
@@ -33,7 +59,7 @@ function start() {
 /**
  * Clean and splits the string with the machine status
  */
-function cleanStatus(status) {
+ function cleanStatus(status) {
     const indexStr = status.indexOf('\x02')
     const indexEnd = status.indexOf('\x17')
     //console.log(status)
@@ -68,9 +94,9 @@ async function cmdQ100() {
     
         }
         if(status != null){
-            adapter.addDataItem('avail', 'AVAILABLE')
+            pub.publish(config.publisher.topic + 'avail', 'AVAILABLE')
         }else{
-            adapter.addDataItem('avail', 'UNAVAILABLE')
+            pub.publish(config.publisher.topic + 'avail', 'UNAVAILABLE')
         }
         first = false
 
@@ -100,16 +126,16 @@ async function cmdQ104() {
         if(status[1] != null){
             switch (status[1].trim()) {
                 case 'MDI':
-                    adapter.addDataItem('mode', 'MANUAL_DATA_INPUT')
+                    pub.publish(config.publisher.topic + 'mode', 'MANUAL_DATA_INPUT')
                     break;
                 case 'JOG':
-                    adapter.addDataItem('mode', 'MANUAL')
+                    pub.publish(config.publisher.topic + 'mode', 'MANUAL')
                     break;
                 case 'ZERORET':
-                    adapter.addDataItem('mode', 'MANUAL')
+                    pub.publish(config.publisher.topic + 'mode', 'MANUAL')
                     break;
                 default:
-                    adapter.addDataItem('mode', 'AUTOMATIC')
+                    pub.publish(config.publisher.topic + 'mode', 'AUTOMATIC')
                     break;
             }
         }
@@ -138,19 +164,19 @@ async function cmdQ500() {
         
         if (status[0].trim() === 'PROGRAM') {
             if(status[1] != null){
-                adapter.addDataItem('program', status[1].trim())
+                pub.publish(config.publisher.topic + 'program', status[1].trim())
             }
 
             if(status[2] != null){
-                adapter.addDataItem('execution', status[2].trim())
+                pub.publish(config.publisher.topic + 'execution', status[2].trim())
             }
 
             if(status[3] != null && status[4] != null){
-                if(status[3] === 'PARTS') adapter.addDataItem('part_count', status[4].trim())
+                if(status[3] === 'PARTS') pub.publish(config.publisher.topic + 'part_count', status[4].trim())
             }
         }else if(status[0].trim() === 'STATUS'){
             if(status[1] != null){
-                adapter.addDataItem('execution', status[1].trim())
+                pub.publish(config.publisher.topic + 'execution', status[1].trim())
             }
         }
     }
@@ -189,7 +215,7 @@ async function cmd5021() {
     }
     status = cleanStatus(status)
     if(status[2] != null){
-        adapter.addDataItem('x_act', status[2].trim())
+        pub.publish(config.publisher.topic + 'x_act', status[2].trim())
     }
 }
 
@@ -209,7 +235,7 @@ async function cmd5022() {
     }
     status = cleanStatus(status)
     if(status[2] != null){
-        adapter.addDataItem('y_act', status[2].trim())
+        pub.publish(config.publisher.topic + 'y_act', status[2].trim())
     }
 }
 
@@ -229,7 +255,7 @@ async function cmd5023() {
     }
     status = cleanStatus(status)
     if(status[2] != null){
-        adapter.addDataItem('z_act', status[2].trim())
+        pub.publish(config.publisher.topic + 'z_act', status[2].trim())
     }
 }
 
@@ -249,7 +275,7 @@ async function cmd3027() {
     }
     status = cleanStatus(status)
     if(status[2] != null){
-        adapter.addDataItem('speed', status[2].trim())
+        pub.publish(config.publisher.topic + 'speed', status[2].trim())
     }
 }
 
@@ -269,7 +295,7 @@ async function cmd1094() {
     }
     status = cleanStatus(status)
     if(status[2] != null){
-        adapter.addDataItem('coolant_level', status[2].trim())
+        pub.publish(config.publisher.topic + 'coolant_level', status[2].trim())
     }
 }
 
@@ -289,7 +315,7 @@ async function cmd1098() {
     }
     status = cleanStatus(status)
     if(status[2] != null){
-        adapter.addDataItem('load', status[2].trim())
+        pub.publish(config.publisher.topic + 'load', status[2].trim())
     }
 }
 
@@ -300,7 +326,7 @@ async function cmd3026() {
     let status = await serialcomm.sendCommand('Q600 3026')
     status = cleanStatus(status)
     if(status[2] != null){
-        adapter.addDataItem('load', status[2].trim())
+        pub.publish(config.publisher.topic + 'load', status[2].trim())
     }
 }
 

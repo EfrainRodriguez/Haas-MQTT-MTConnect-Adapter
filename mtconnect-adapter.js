@@ -4,7 +4,6 @@ module.exports = function (options) {
 
     let _port = options.port || 7878
     let _host = options.host || 'localhost'
-
     this.heartbit = options.heartbit || 1000
 
     let shdrLine = ''
@@ -27,7 +26,7 @@ module.exports = function (options) {
             if (data.includes('* PING')) {
                 socket.write('* PONG ' + this.heartbit.toString() + '\n')
                 buildSHDR()
-                console.log(shdrLine)
+                //console.log(shdrLine)
                 socket.write(shdrLine)
             }
         })
