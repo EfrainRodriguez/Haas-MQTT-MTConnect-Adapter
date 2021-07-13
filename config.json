@@ -1,17 +1,21 @@
 {
     "serial": {
+
         "port": "COM3",
         "baudrate": 38400,
         "parity": "even",
         "stopBits": 1,
         "dataBits": 7
+
     },
 
     "adapter": {
+
         "host": "localhost",
         "port": 7878,
         "heartbit": 1000,
-        "simulation": true
+        "simulation": false
+        
     },
 
     "publisher": {
@@ -19,7 +23,7 @@
         "host": "localhost",
         "port": 1883,
         "topic": "haas/minimill/",
-        "simulation": true
+        "simulation": false
 
     }
 

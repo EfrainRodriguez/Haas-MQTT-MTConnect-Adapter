@@ -1,11 +1,12 @@
-/*  MQTT: Messages associated to a certain topic
-**  Publisher: Sends the messages to the broker
-**  Broker: Server that manages the messages sent from publishers to subscribers
+/*  
+**  MQTT:           Messages associated to a certain topic
+**  Publisher:      Sends the messages to the broker
+**  Broker:         Server that manages the messages sent from publishers to subscribers
 **  Subscribers:    Receives the messages sent from publishers
 **
-**  Main topic: haas/minimill/*    
+**  Main topic:     haas/minimill/*    
 **  (standard topic, you can modify at config.json, keep in mind that it has to be the same topic of your subscribers' configurations)
-**  *: Subtopics (temperature, load, speed, position, availability, operation mode, program, parts_count)
+**  *:              Subtopics (avail, mode, program, execution, part_count, x_act, y_act, z_act, speed, coolant_level, load)
 */
 
 const Serial = require('./haas-serial')
@@ -22,6 +23,7 @@ const simulator = simulation ? new Simulator() : null
 
 const broker = new Broker(config.publisher)
 const pub = mqtt.connect(`mqtt://${config.publisher.host}:${config.publisher.port}`)
+
 pub.on('connect', () => {
 
     setInterval(() => {
@@ -33,6 +35,15 @@ pub.on('connect', () => {
         }
 
     }, 1000)
+
+})
+
+process.on('SIGINT', function() {
+
+    console.log('Finishing process and closing publisher.')
+    pub.publish('haas/minimill/status', 'OFFLINE')
+    pub.end()
+    broker.server.close()
 
 })
 
@@ -81,7 +92,7 @@ function start() {
 async function cmdQ100() {
 
     
-    if (first) {
+    if (first || !first) {
 
         let status
         if (simulation) {
@@ -315,6 +326,7 @@ async function cmd1098() {
     }
     status = cleanStatus(status)
     if(status[2] != null){
+        status[2] = String((Number(status[2])/81.9200).toFixed(3))
         pub.publish(config.publisher.topic + 'load', status[2].trim())
     }
 }

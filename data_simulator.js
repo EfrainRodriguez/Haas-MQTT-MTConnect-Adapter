@@ -53,13 +53,13 @@ module.exports = function() {
     }
     this.Q600_1094 = async function() {
 
-        str = `Q600 1094 \x02MACRO, 1094,       ${(this.getRandomInt(0, 10000000)).toFixed(3)}\x17 >`
+        str = `Q600 1094 \x02MACRO, 1094,       ${(this.getRandomInt(0, 151000000)/1000).toFixed(3)}\x17 >`
         return str
 
     }
     this.Q600_1098 = async function() {
 
-        str = `Q600 1098 \x02MACRO, 1098,       ${Math.floor(this.getRandomInt(0, 8192)/81.92).toFixed(3)}\x17 >`
+        str = `Q600 1098 \x02MACRO, 1098,       ${Math.floor(this.getRandomInt(0, 8192)).toFixed(3)}\x17 >`
         return str
 
     }

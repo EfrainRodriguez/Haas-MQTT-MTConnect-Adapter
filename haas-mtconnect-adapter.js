@@ -289,6 +289,7 @@ async function cmd1098() {
     }
     status = cleanStatus(status)
     if(status[2] != null){
+        status[2] = String((Number(status[2])/81.9200).toFixed(3))
         adapter.addDataItem('load', status[2].trim())
     }
 }
