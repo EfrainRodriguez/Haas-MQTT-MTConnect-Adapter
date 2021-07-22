@@ -73,7 +73,7 @@ There is also a MQTT solution which you can run with the following command:
 npm run publisher
 ```
 
-In order for it to work you need to install and set up a MQTT broker, the broker used to test this project can be found at `https://github.com/eclipse/mosquitto`. In the `config.json` file mentioned above, adjustments are needed in the "publisher" section accordingly to the configurations done to set up the broker. 
+In order for it to work you need to install and set up a MQTT broker, the broker used to test this project can be found at `https://github.com/moscajs/aedes/`. In the `config.json` file mentioned above, adjustments are needed in the "publisher" section accordingly to the configurations done to set up the broker. 
 
 ## Credits
 The project is part of the research developments in the LaDPRER laboratory, UnB, Brazil.
