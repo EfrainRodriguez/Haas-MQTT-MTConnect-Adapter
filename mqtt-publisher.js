@@ -23,7 +23,7 @@ const simulator = simulation ? new Simulator() : null
 
 const broker = new Broker(config.publisher)
 const pub = mqtt.connect(`mqtt://${config.publisher.host}:${config.publisher.port}`)
-
+console.log(config.publisher.heartbit)
 pub.on('connect', () => {
 
     setInterval(() => {
@@ -34,7 +34,7 @@ pub.on('connect', () => {
 
         }
 
-    }, 1000)
+    }, config.publisher.heartbit)
 
 })
 
@@ -204,7 +204,7 @@ async function cmdQ600() {
     await cmd5023()
     await cmd3027()
     await cmd1094()
-    await sleep(500)
+    //await sleep(500)
     await cmd1098()
     //await cmd3026()
 
@@ -226,7 +226,7 @@ async function cmd5021() {
     }
     status = cleanStatus(status)
     if(status[2] != null){
-        pub.publish(config.publisher.topic + 'x_act', status[2].trim())
+        pub.publish(config.publisher.topic + 'x_act', String(Number(status[2].trim()).toFixed([3])))
     }
 }
 
@@ -246,7 +246,7 @@ async function cmd5022() {
     }
     status = cleanStatus(status)
     if(status[2] != null){
-        pub.publish(config.publisher.topic + 'y_act', status[2].trim())
+        pub.publish(config.publisher.topic + 'y_act', String(Number(status[2].trim()).toFixed([3])))
     }
 }
 
@@ -266,7 +266,7 @@ async function cmd5023() {
     }
     status = cleanStatus(status)
     if(status[2] != null){
-        pub.publish(config.publisher.topic + 'z_act', status[2].trim())
+        pub.publish(config.publisher.topic + 'z_act', String(Number(status[2].trim()).toFixed([3])))
     }
 }
 
