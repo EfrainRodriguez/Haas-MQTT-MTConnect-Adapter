@@ -23,7 +23,7 @@ const simulator = simulation ? new Simulator() : null
 
 const broker = new Broker(config.publisher)
 const pub = mqtt.connect(`mqtt://${config.publisher.host}:${config.publisher.port}`)
-console.log(config.publisher.heartbit)
+//console.log(config.publisher.heartbit)
 pub.on('connect', () => {
 
     setInterval(() => {
