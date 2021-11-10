@@ -18,6 +18,7 @@
   "dependencies": {
     "aedes": "^0.46.0",
     "mqtt": "^4.2.6",
-    "serialport": "^9.0.4"
+    "serialport": "^9.0.4",
+    "websocket-stream": "^5.5.2"
   }
 }

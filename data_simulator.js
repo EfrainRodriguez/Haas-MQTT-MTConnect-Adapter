@@ -29,19 +29,19 @@ module.exports = function() {
     }
     this.Q600_5021 = async function() {
 
-        str = `Q600 5021 \x02MACRO, 5021,       ${(this.getRandomInt(-255000, 255000)/1000).toFixed(3)}\x17 >`
+        str = `Q600 5021 \x02MACRO, 5021,       ${(this.getRandomInt(-600000, 200000)/1000).toFixed(3)}\x17 >`
         return str
 
     }
     this.Q600_5022 = async function() {
 
-        str = `Q600 5022 \x02MACRO, 5022,       ${(this.getRandomInt(-255000, 255000)/1000).toFixed(3)}\x17 >`
+        str = `Q600 5022 \x02MACRO, 5022,       ${(this.getRandomInt(-300000, 100000)/1000).toFixed(3)}\x17 >`
         return str
 
     }
     this.Q600_5023 = async function() {
 
-        str = `Q600 5023 \x02MACRO, 5023,       ${(this.getRandomInt(-255000, 255000)/1000).toFixed(3)}\x17 >`
+        str = `Q600 5023 \x02MACRO, 5023,       ${(this.getRandomInt(-250000, 100000)/1000).toFixed(3)}\x17 >`
         return str
 
     }

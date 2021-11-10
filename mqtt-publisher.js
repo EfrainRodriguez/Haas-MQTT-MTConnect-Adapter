@@ -23,12 +23,13 @@ const simulator = simulation ? new Simulator() : null
 
 const broker = new Broker(config.publisher)
 const pub = mqtt.connect(`mqtt://${config.publisher.host}:${config.publisher.port}`)
+var position = ""
 //console.log(config.publisher.heartbit)
 pub.on('connect', () => {
 
     setInterval(() => {
 
-        if (broker.connected >= 2) {
+        if (broker.connected >= 1) {
 
             start()
 
@@ -226,6 +227,7 @@ async function cmd5021() {
     }
     status = cleanStatus(status)
     if(status[2] != null){
+        position = String(Number(status[2].trim()).toFixed([3]))
         pub.publish(config.publisher.topic + 'x_act', String(Number(status[2].trim()).toFixed([3])))
     }
 }
@@ -246,6 +248,8 @@ async function cmd5022() {
     }
     status = cleanStatus(status)
     if(status[2] != null){
+        position += ';'
+        position += String(Number(status[2].trim()).toFixed([3]))
         pub.publish(config.publisher.topic + 'y_act', String(Number(status[2].trim()).toFixed([3])))
     }
 }
@@ -266,7 +270,10 @@ async function cmd5023() {
     }
     status = cleanStatus(status)
     if(status[2] != null){
+        position += ';'
+        position += String(Number(status[2].trim()).toFixed([3]))
         pub.publish(config.publisher.topic + 'z_act', String(Number(status[2].trim()).toFixed([3])))
+        pub.publish(config.publisher.topic + 'position', position)
     }
 }
 
@@ -338,7 +345,7 @@ async function cmd3026() {
     let status = await serialcomm.sendCommand('Q600 3026')
     status = cleanStatus(status)
     if(status[2] != null){
-        pub.publish(config.publisher.topic + 'load', status[2].trim())
+        pub.publish(config.publisher.topic + 'tool', status[2].trim())
     }
 }
 
