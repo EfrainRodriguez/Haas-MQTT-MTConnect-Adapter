@@ -1,8 +1,8 @@
 {
     "serial": {
 
-        "port": "COM3",
-        "baudrate": 115200,
+        "port": "/dev/ttyUSB0",
+        "baudrate": 38400,
         "parity": "even",
         "stopBits": 1,
         "dataBits": 7
@@ -13,8 +13,8 @@
 
         "host": "localhost",
         "port": 7878,
-        "heartbit": 1000,
-        "simulation": false
+        "heartbit": 500,
+        "simulation": true
         
     },
 

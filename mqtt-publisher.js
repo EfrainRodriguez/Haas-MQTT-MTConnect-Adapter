@@ -200,6 +200,7 @@ async function cmdQ500() {
  */
 async function cmdQ600() {
 
+    await timestamp()
     await cmd5021()
     await cmd5022()
     await cmd5023()
@@ -207,6 +208,7 @@ async function cmdQ600() {
     await cmd1094()
     //await sleep(500)
     await cmd1098()
+    
     //await cmd3026()
 
 }
@@ -333,9 +335,12 @@ async function cmd1098() {
     }
     status = cleanStatus(status)
     if(status[2] != null){
+        
         status[2] = String((Number(status[2])/81.9200).toFixed(3))
         pub.publish(config.publisher.topic + 'load', status[2].trim())
+        
     }
+
 }
 
 /**
@@ -347,6 +352,12 @@ async function cmd3026() {
     if(status[2] != null){
         pub.publish(config.publisher.topic + 'tool', status[2].trim())
     }
+}
+
+async function timestamp() {
+
+    pub.publish(config.publisher.topic + 'timestamp', String(Date.now()))
+
 }
 
 function sleep(ms) {
